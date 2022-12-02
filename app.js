@@ -50,6 +50,6 @@ for(let i=1; i<table.rows.length;i++){
 let form = document.forms["nowy"]
 form.onsubmit = (event)=>{
     event.preventDefault()
-    paragon.add(form.elements["nazwa"], form.elements["ilość"], form.elements["cena"])
+    paragon.add(form.elements["nazwa"].value, form.elements["ilość"].value, form.elements["cena"].value)
 }
 form["nazwa"]
