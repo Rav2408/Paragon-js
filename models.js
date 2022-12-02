@@ -1,12 +1,6 @@
-let idSequnce=0
-function sequenceGenerator() {
-    return ++idSequnce
-}
-
-
 class Product{
-    constructor(name,amount,price){
-        this.id = sequenceGenerator()
+    constructor(id,name,amount,price){
+        this.id = id
         this.name = name
         this.amount = amount
         this.price = price
@@ -25,17 +19,11 @@ class Receipt{
     }
 
     add(name,amount,price){
-        this.products.push(new Product(name,amount,price))
+        this.products.push(new Product(this.products.length+1,name,amount,price))
     }
 
     get(id){
-        return this.products[this.getPosition(id)]
-    }
-    getPosition(id){
-        for(let i=0; i<this.products.length; i++){
-            if(this.products[i].id==id)
-                return i
-        }
+        return this.products[this.id-1]
     }
     getAll(){
         return this.products
@@ -48,12 +36,21 @@ class Receipt{
         prod.price = price
         prod.updateSum()
     }
-    editOrder(product,orderId){
-        //retrunOrderOfObject(product)
-        this.products.splice(orderId,0,product)
+    editOrder(id,orderId){
+        this.products.splice(orderId,0,this.products[id])
+        this.updateIds()
+        //this.delete(id)
     }
     delete(id){
-        this.products.splice(this.getPosition(id),1)
+        this.products.splice(this.id,1)
+        this.updateIds()
+    }
+    updateIds(){
+        let i = 1
+        this.products.forEach(element=>{
+            element.id=i
+            i++
+        })
     }
 
 }

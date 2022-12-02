@@ -1,28 +1,57 @@
-console.log('Hello')
-
 const paragon = new Receipt()
 
 paragon.add("nazwa",1,10)
 paragon.add('nazwas',3,10.5)
 paragon.add('nazwasssa',3,10.5)
 paragon.add('nazwasdfsdfdsf',3,10.5)
+console.log(paragon.products.length)
+paragon.editOrder(1,3)
+console.log(paragon.products.length)
 let placeholder = document.querySelector("#data-output");
+let table = document.getElementById("paragon")
 
+function renderTable(paragon){
+    let out = "";
+    for(let product of paragon.getAll())
+    {   
+        out += `
+        <tr draggable="true" ondragstart="start()"  ondragover="dragover()">
+            <td> ${product.id} </td>
+            <td contenteditable="true">${product.name} </td>
+            <td contenteditable="true">${product.amount} </td>
+            <td contenteditable="true">${product.price} </td>
+            <td>${product.sum} </td>
+            <td> <input type="submit" name="Usuń" id="Usuń" value="Usuń"></td>
+        </tr>
+        ` 
+    }
+    placeholder.innerHTML = out;
 
-let out = "";
-for(let product of paragon.getAll())
-{   
-    out += `
-    <tr>
-        <td>${product.id} </td>
-        <td contenteditable="true">${product.name} </td>
-        <td contenteditable="true">${product.amount} </td>
-        <td contenteditable="true">${product.price} </td>
-        <td>${product.sum} </td>
-    </tr>
-    ` 
+    for(let i=1; i<table.rows.length;i++){ 
+        addEditListener(table.rows[i])
+        addDeleteListener(table.rows[i].cells[5])        
+    }
 }
-placeholder.innerHTML = out;
+renderTable(paragon)
+
+function start(){  
+    row = event.target; 
+}
+function dragover(){
+    var e = event;
+    e.preventDefault(); 
+    
+    let children= Array.from(e.target.parentNode.parentNode.children);
+    
+    if(children.indexOf(e.target.parentNode)>children.indexOf(row))
+      e.target.parentNode.after(row);
+    else
+      e.target.parentNode.before(row);
+    console.log(e.target)
+    
+    //paragon.editOrder(e.target)    
+}
+
 
 function updateTable(receipt){
     for(let i=1; i<table.rows.length;i++){
@@ -31,25 +60,25 @@ function updateTable(receipt){
 }
 
 
-let table = document.getElementById("paragon")
-console.log(table)
-console.log(table.rows[1])
-console.log(table.rows.item(0))
-console.log(table.rows[1].cells[0])
 
-for(let i=1; i<table.rows.length;i++){
-    const row = table.rows[i]
+function addEditListener(row) {
     row.addEventListener('input', function () {
-        console.log("helo")
-        console.log(row.cells[0].innerHTML)
         paragon.edit(row.cells[0].innerHTML,row.cells[1].innerHTML,row.cells[2].innerHTML,row.cells[3].innerHTML)
         updateTable(paragon)
     })
 }
+function addDeleteListener(cell) {
+    cell.addEventListener('click', function () {
+        paragon.delete(cell.innerHTML)
+        renderTable(paragon)
+    })
+}
+
+
 
 let form = document.forms["nowy"]
 form.onsubmit = (event)=>{
     event.preventDefault()
     paragon.add(form.elements["nazwa"].value, form.elements["ilość"].value, form.elements["cena"].value)
+    renderTable(paragon)
 }
-form["nazwa"]
