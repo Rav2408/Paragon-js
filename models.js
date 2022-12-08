@@ -4,10 +4,6 @@ class Product{
         this.name = name
         this.amount = amount
         this.price = price
-        this.updateSum()
-    }
-
-    updateSum() {
         this.sum = this.amount*this.price
     }
 }
@@ -40,11 +36,11 @@ class Receipt{
         prod.name = name
         prod.amount = amount
         prod.price = price
-        prod.updateSum()
+        prod.sum = price*amount
     }
     editOrder(id,orderId){
         let a = this.products[id]
-        let b = this.products[orderId] //this.get(this.findById(orderId+1))
+        let b = this.products[orderId]
         
         let name = b.name
         let amount = b.amount
@@ -59,16 +55,6 @@ class Receipt{
         a.price = price
         
         this.updateIds()
-        console.log(a)
-        console.log(b)
-        // this.products.splice(orderId,0,this.products[id])
-        // this.updateIds()
-        // if(orderId>id){
-        //     this.delete(id)
-        // }else{
-        //     this.delete(id+1)
-        // }
-        // //this.updateIds()
     }
     delete(id){
         this.products.splice(this.findById(id),1)

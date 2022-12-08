@@ -1,29 +1,14 @@
 const paragon = new Receipt()
 
-document.body.onload = function () {
-    if (localStorage.products)
-    paragon.products = JSON.parse(paragon.products)
-}
-// document.body.unload = function () {
-//     localStorage.products = JSON.stringify(paragon.products)
-// }
-
-
-// document.getElementById("btnRoll").onclick = function () {
-//     ar.push(Math.floor(Math.random() * 6) + 1)
-//     ar.show()
-//     localStorage.paragon = JSON.stringify(paragon)
-
-//   }
-   
+if (localStorage.products){
+    paragon.products = JSON.parse(window.localStorage.products)
+}  
 
 // paragon.add("nazwa1",1,10)
 // paragon.add('nazwa2',3,10.5)
 // paragon.add('nazwa3',3,10.5)
 // paragon.add('nazwa4',3,10.5)
-// console.log(paragon.products.length)
-// paragon.editOrder(1,3)
-// console.log(paragon.products.length)
+
 let placeholder = document.querySelector("#data-output");
 let placeholder_price = document.querySelector("#price-output");
 let table = document.getElementById("paragon")
@@ -37,8 +22,8 @@ function renderTable(paragon){
         <tr draggable="true" ondragstart="start()"  ondragover="dragover()">
             <td> ${product.id} </td>
             <td contenteditable="true">${product.name} </td>
-            <td contenteditable="true">${product.amount} </td>
-            <td contenteditable="true">${product.price} </td>
+            <td id="myeditable" contenteditable="true">${product.amount} </td>
+            <td id="myeditable" contenteditable="true">${product.price} </td>
             <td>${product.sum} </td>
             <td> <input type="submit" name="Usuń" id="Usuń" value="Usuń"></td>
         </tr>
@@ -69,18 +54,8 @@ function dragover(){
       e.target.parentNode.after(row);
     else
       e.target.parentNode.before(row);
-
-    console.log(children.indexOf(row))
-    console.log(children.indexOf(e.target.parentNode))
     
-    
-    // console.log(e.target.innerHTML)
-    // console.log(children.indexOf(row))
-    
-    
-    paragon.editOrder(children.indexOf(e.target.parentNode),children.indexOf(row))
-    // paragon.updateIds()
-    // updateTable(paragon)    
+    paragon.editOrder(children.indexOf(e.target.parentNode),children.indexOf(row))  
 }
 
 
@@ -105,6 +80,9 @@ function addDeleteListener(row) {
     cell.addEventListener('click', function () {
         paragon.delete(parseInt(row.cells[0].innerHTML))
         renderTable(paragon)
+        document.getElementById("gif").style.display="block"
+        setTimeout( function() { 
+            document.getElementById("gif").style.display="none" }, 1400);
     })
 }
 
@@ -118,5 +96,5 @@ form.onsubmit = (event)=>{
 }
 
 function updateStorage(){
-    localStorage.products = JSON.stringify(paragon.products)
+    window.localStorage.products = JSON.stringify(paragon.products)
 }
