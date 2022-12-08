@@ -10,7 +10,6 @@ if (localStorage.products){
 // paragon.add('nazwa4',3,10.5)
 
 let placeholder = document.querySelector("#data-output");
-let placeholder_price = document.querySelector("#price-output");
 let table = document.getElementById("paragon")
 let suma = document.getElementById("suma")
 
@@ -36,7 +35,7 @@ function renderTable(paragon){
         addEditListener(table.rows[i])
         addDeleteListener(table.rows[i])        
     }
-    suma.innerText = "Suma: " + paragon.calculate_sum()
+    suma.innerText = "Suma: " + paragon.calculateSum()
     updateStorage()
 }
 renderTable(paragon)
