@@ -23,7 +23,13 @@ class Receipt{
     }
 
     get(id){
-        return this.products[this.id-1]
+        return this.products[this.findById(id)]
+    }
+    findById(id){
+        for(let i=0; i<this.products.length;i++){
+            if(id == this.products[i].id)
+                return i;
+        }
     }
     getAll(){
         return this.products
@@ -37,12 +43,35 @@ class Receipt{
         prod.updateSum()
     }
     editOrder(id,orderId){
-        this.products.splice(orderId,0,this.products[id])
+        let a = this.products[id]
+        let b = this.products[orderId] //this.get(this.findById(orderId+1))
+        
+        let name = b.name
+        let amount = b.amount
+        let price = b.price
+        
+        b.name = a.name
+        b.amount = a.amount
+        b.price = a.price
+
+        a.name = name
+        a.amount = amount
+        a.price = price
+        
         this.updateIds()
-        //this.delete(id)
+        console.log(a)
+        console.log(b)
+        // this.products.splice(orderId,0,this.products[id])
+        // this.updateIds()
+        // if(orderId>id){
+        //     this.delete(id)
+        // }else{
+        //     this.delete(id+1)
+        // }
+        // //this.updateIds()
     }
     delete(id){
-        this.products.splice(this.id,1)
+        this.products.splice(this.findById(id),1)
         this.updateIds()
     }
     updateIds(){

@@ -1,12 +1,12 @@
 const paragon = new Receipt()
 
-paragon.add("nazwa",1,10)
-paragon.add('nazwas',3,10.5)
-paragon.add('nazwasssa',3,10.5)
-paragon.add('nazwasdfsdfdsf',3,10.5)
-console.log(paragon.products.length)
-paragon.editOrder(1,3)
-console.log(paragon.products.length)
+paragon.add("nazwa1",1,10)
+paragon.add('nazwa2',3,10.5)
+paragon.add('nazwa3',3,10.5)
+paragon.add('nazwa4',3,10.5)
+// console.log(paragon.products.length)
+// paragon.editOrder(1,3)
+// console.log(paragon.products.length)
 let placeholder = document.querySelector("#data-output");
 let table = document.getElementById("paragon")
 
@@ -47,9 +47,18 @@ function dragover(){
       e.target.parentNode.after(row);
     else
       e.target.parentNode.before(row);
-    console.log(e.target)
+
+    console.log(children.indexOf(row))
+    console.log(children.indexOf(e.target.parentNode))
     
-    //paragon.editOrder(e.target)    
+    
+    // console.log(e.target.innerHTML)
+    // console.log(children.indexOf(row))
+    
+    
+    paragon.editOrder(children.indexOf(e.target.parentNode),children.indexOf(row))
+    // paragon.updateIds()
+    // updateTable(paragon)    
 }
 
 
