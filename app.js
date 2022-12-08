@@ -1,9 +1,26 @@
 const paragon = new Receipt()
 
-paragon.add("nazwa1",1,10)
-paragon.add('nazwa2',3,10.5)
-paragon.add('nazwa3',3,10.5)
-paragon.add('nazwa4',3,10.5)
+document.body.onload = function () {
+    if (localStorage.products)
+    paragon.products = JSON.parse(paragon.products)
+}
+// document.body.unload = function () {
+//     localStorage.products = JSON.stringify(paragon.products)
+// }
+
+
+// document.getElementById("btnRoll").onclick = function () {
+//     ar.push(Math.floor(Math.random() * 6) + 1)
+//     ar.show()
+//     localStorage.paragon = JSON.stringify(paragon)
+
+//   }
+   
+
+// paragon.add("nazwa1",1,10)
+// paragon.add('nazwa2',3,10.5)
+// paragon.add('nazwa3',3,10.5)
+// paragon.add('nazwa4',3,10.5)
 // console.log(paragon.products.length)
 // paragon.editOrder(1,3)
 // console.log(paragon.products.length)
@@ -35,6 +52,7 @@ function renderTable(paragon){
         addDeleteListener(table.rows[i])        
     }
     suma.innerText = "Suma: " + paragon.calculate_sum()
+    updateStorage()
 }
 renderTable(paragon)
 
@@ -71,6 +89,7 @@ function updateTable(receipt){
     for(let i=1; i<table.rows.length;i++){
         table.rows[i].cells[4].innerHTML=receipt.get(table.rows[i].cells[0].innerHTML).sum
     }
+    updateStorage()
 }
 
 
@@ -96,4 +115,8 @@ form.onsubmit = (event)=>{
     event.preventDefault()
     paragon.add(form.elements["nazwa"].value, form.elements["ilość"].value, form.elements["cena"].value)
     renderTable(paragon)
+}
+
+function updateStorage(){
+    localStorage.products = JSON.stringify(paragon.products)
 }
