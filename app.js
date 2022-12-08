@@ -29,7 +29,7 @@ function renderTable(paragon){
 
     for(let i=1; i<table.rows.length;i++){ 
         addEditListener(table.rows[i])
-        addDeleteListener(table.rows[i].cells[5])        
+        addDeleteListener(table.rows[i])        
     }
 }
 renderTable(paragon)
@@ -76,9 +76,10 @@ function addEditListener(row) {
         updateTable(paragon)
     })
 }
-function addDeleteListener(cell) {
+function addDeleteListener(row) {
+    let cell = row.cells[5]
     cell.addEventListener('click', function () {
-        paragon.delete(cell.innerHTML)
+        paragon.delete(parseInt(row.cells[0].innerHTML))
         renderTable(paragon)
     })
 }
