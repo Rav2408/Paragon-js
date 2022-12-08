@@ -8,7 +8,9 @@ paragon.add('nazwa4',3,10.5)
 // paragon.editOrder(1,3)
 // console.log(paragon.products.length)
 let placeholder = document.querySelector("#data-output");
+let placeholder_price = document.querySelector("#price-output");
 let table = document.getElementById("paragon")
+let suma = document.getElementById("suma")
 
 function renderTable(paragon){
     let out = "";
@@ -25,12 +27,14 @@ function renderTable(paragon){
         </tr>
         ` 
     }
+    
     placeholder.innerHTML = out;
 
     for(let i=1; i<table.rows.length;i++){ 
         addEditListener(table.rows[i])
         addDeleteListener(table.rows[i].cells[5])        
     }
+    suma.innerText = "Suma: " + paragon.calculate_sum()
 }
 renderTable(paragon)
 
@@ -60,6 +64,7 @@ function dragover(){
     // paragon.updateIds()
     // updateTable(paragon)    
 }
+
 
 
 function updateTable(receipt){

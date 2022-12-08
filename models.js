@@ -81,5 +81,13 @@ class Receipt{
             i++
         })
     }
+    calculate_sum(){
+        let summ = 0;
+        for(let product of this.products)
+            {
+                summ += product.sum
+            }
+            return summ
+    }
 
 }
