@@ -1,17 +1,21 @@
 const paragon = new Receipt()
 
-if (localStorage.products){
-    paragon.products = JSON.parse(window.localStorage.products)
+if (localStorage.products && localStorage.products!=[]){
+    paragon.products = JSON.parse(localStorage.products)
 }  
 
-// paragon.add("nazwa1",1,10)
-// paragon.add('nazwa2',3,10.5)
-// paragon.add('nazwa3',3,10.5)
-// paragon.add('nazwa4',3,10.5)
+// paragon.add("Piłka",2,39.99)
+// paragon.add('Ciastka 400g',3,4.59)
+// paragon.add('Makaron 200g',2,3.20)
+// paragon.add('Tymbark 250ml',3,2)
 
 let placeholder = document.querySelector("#data-output");
 let table = document.getElementById("paragon")
 let suma = document.getElementById("suma")
+
+function update() {
+    renderTable(paragon)
+}
 
 function renderTable(paragon){
     let out = "";
@@ -95,5 +99,5 @@ form.onsubmit = (event)=>{
 }
 
 function updateStorage(){
-    window.localStorage.products = JSON.stringify(paragon.products)
+    localStorage.products = JSON.stringify(paragon.products)
 }
