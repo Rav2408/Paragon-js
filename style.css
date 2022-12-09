@@ -49,3 +49,12 @@ table {
 button {
  margin-bottom: 10px;
 }
+
+#Usuń  {
+    background: #F14908;
+    border-radius: 10%;
+}
+
+#Usuń:hover {
+    background: #F57a4c
+}
